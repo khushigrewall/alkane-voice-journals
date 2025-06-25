@@ -1,42 +1,40 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Calendar, Book, User, Home } from 'lucide-react';
+import { Menu, X, Calendar, BookOpen, User, Home } from 'lucide-react';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
     { name: 'Home', href: '#home', icon: Home },
-    { name: 'Your Journal', href: '#journal', icon: Book },
+    { name: 'Journal', href: '#journal', icon: BookOpen },
     { name: 'Calendar', href: '#calendar', icon: Calendar },
-    { name: 'Account', href: '#account', icon: User },
+    { name: 'Dashboard', href: '#subscription', icon: User },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-peach-light shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-accent/20">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex items-center">
-            <span className="text-2xl font-bold text-primary">ALKANE</span>
-            <span className="ml-2 text-sm text-secondary hidden sm:block">Your Personal Journal Companion</span>
+            <span className="text-3xl font-bold text-primary font-poppins tracking-tight">ALKANE</span>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-10">
             {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                className="flex items-center space-x-2 text-primary/80 hover:text-primary transition-colors duration-200"
+                className="text-primary/70 hover:text-primary transition-colors duration-300 font-poppins font-medium"
               >
-                <item.icon className="w-4 h-4" />
-                <span>{item.name}</span>
+                {item.name}
               </a>
             ))}
-            <Button className="bg-accent-gradient text-primary font-semibold px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300">
-              Start Journaling
+            <Button className="bg-primary text-white font-poppins font-semibold px-8 py-3 rounded-full hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl">
+              Get Started
             </Button>
           </div>
 
@@ -44,7 +42,7 @@ const Navigation = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-primary hover:text-secondary transition-colors"
+              className="text-primary hover:text-secondary transition-colors p-2"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -53,21 +51,20 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden py-4 animate-fade-in">
-            <div className="flex flex-col space-y-4">
+          <div className="md:hidden bg-white border-t border-accent/20 py-6">
+            <div className="flex flex-col space-y-6">
               {navItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="flex items-center space-x-3 text-primary/80 hover:text-primary transition-colors duration-200 py-2"
+                  className="text-primary/70 hover:text-primary transition-colors duration-300 font-poppins font-medium px-2"
                   onClick={() => setIsOpen(false)}
                 >
-                  <item.icon className="w-5 h-5" />
-                  <span>{item.name}</span>
+                  {item.name}
                 </a>
               ))}
-              <Button className="bg-accent-gradient text-primary font-semibold px-6 py-3 rounded-full mt-4">
-                Start Journaling
+              <Button className="bg-primary text-white font-poppins font-semibold px-8 py-3 rounded-full mx-2">
+                Get Started
               </Button>
             </div>
           </div>

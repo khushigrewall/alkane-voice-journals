@@ -1,28 +1,27 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { ChevronLeft, ChevronRight, BookOpen, Calendar as CalendarIcon } from 'lucide-react';
+import { ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
 
 const JournalSection = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isFlipping, setIsFlipping] = useState(false);
 
-  // Sample journal entries - replace with real data
+  // Sample journal entries
   const journalEntries = [
     {
       date: "2024-01-15",
       title: "A Beautiful Beginning",
-      content: "Today was the start of something special. I felt a sense of peace and clarity that I haven't experienced in a while. The conversation with the ALKANE agent felt natural and therapeutic, like talking to an old friend who truly understands.",
+      content: "Today was the start of something special. I felt a sense of peace and clarity that I haven't experienced in a while. The conversation with the ALKANE agent felt natural and therapeutic, like talking to an old friend who truly understands. There's something magical about being heard without judgment, and I can already feel this journey will be transformative.",
       mood: "Peaceful",
-      highlights: ["Morning meditation", "Productive work session", "Quality time with family"]
+      highlights: ["Morning meditation brought clarity", "Productive work session with focus", "Quality family time over dinner"]
     },
     {
       date: "2024-01-16", 
       title: "Reflections on Growth",
-      content: "I'm beginning to see patterns in my thoughts and behaviors. Today's session helped me realize how much I've grown in the past few months. The gentle questions from my ALKANE companion guided me to insights I might have missed.",
+      content: "I'm beginning to see patterns in my thoughts and behaviors that I never noticed before. Today's session helped me realize how much I've grown in the past few months. The gentle questions from my ALKANE companion guided me to insights I might have missed entirely. It's like having a personal therapist who's always there when I need them.",
       mood: "Grateful",
-      highlights: ["Self-reflection time", "Completed a challenging project", "Evening walk in nature"]
+      highlights: ["Deep self-reflection session", "Completed challenging project successfully", "Evening nature walk brought peace"]
     }
   ];
 
@@ -35,38 +34,42 @@ const JournalSection = () => {
         setCurrentPage(currentPage - 1);
       }
       setIsFlipping(false);
-    }, 300);
+    }, 400);
   };
 
   const hasEntries = journalEntries.length > 0;
 
   return (
-    <section id="journal" className="py-20 bg-peach-gradient">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-primary mb-6">
+    <section id="journal" className="py-24 bg-gradient-to-br from-peach-light to-white">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+        <div className="text-center mb-20 animate-fade-in">
+          <h2 className="text-5xl lg:text-6xl font-bold text-primary mb-8 font-poppins">
             Your Personal Journal
           </h2>
-          <p className="text-xl text-primary/80">
+          <p className="text-xl text-primary/80 max-w-3xl mx-auto font-poppins">
             Every conversation becomes a beautiful memory, preserved like pages in your life's story
           </p>
         </div>
 
         {hasEntries ? (
-          <div className="relative max-w-4xl mx-auto">
-            {/* Book Container */}
-            <div className="relative bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl shadow-2xl p-8 min-h-[500px]">
+          <div className="relative max-w-5xl mx-auto">
+            {/* Book Container with Enhanced Animation */}
+            <div className="relative bg-gradient-to-r from-amber-50 to-orange-50 rounded-3xl shadow-2xl p-12 min-h-[600px] transform-gpu perspective-1000">
               {/* Book Spine Effect */}
-              <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-b from-amber-200 to-orange-300 rounded-l-2xl shadow-inner"></div>
+              <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-b from-amber-200 to-orange-300 rounded-l-3xl shadow-inner border-r-2 border-amber-300"></div>
               
-              {/* Page Content */}
-              <div className={`transition-all duration-500 transform ${isFlipping ? 'scale-95 opacity-50' : 'scale-100 opacity-100'}`}>
-                <div className="ml-8">
+              {/* Page Content with Flip Animation */}
+              <div className={`transition-all duration-500 transform-gpu ${
+                isFlipping 
+                  ? 'scale-95 opacity-30 rotateY-12' 
+                  : 'scale-100 opacity-100 rotateY-0'
+              }`}>
+                <div className="ml-12">
                   {/* Page Header */}
-                  <div className="flex justify-between items-center mb-8 border-b border-primary/20 pb-4">
-                    <div className="flex items-center space-x-3">
-                      <BookOpen className="w-6 h-6 text-secondary" />
-                      <span className="text-lg font-semibold text-primary">
+                  <div className="flex justify-between items-center mb-10 border-b-2 border-primary/20 pb-6">
+                    <div className="flex items-center space-x-4">
+                      <BookOpen className="w-8 h-8 text-secondary" />
+                      <span className="text-2xl font-bold text-primary font-poppins">
                         {new Date(journalEntries[currentPage].date).toLocaleDateString('en-US', { 
                           weekday: 'long', 
                           year: 'numeric', 
@@ -75,35 +78,35 @@ const JournalSection = () => {
                         })}
                       </span>
                     </div>
-                    <span className="text-sm text-primary/60">Page {currentPage + 1} of {journalEntries.length}</span>
+                    <span className="text-primary/60 font-poppins font-medium">Page {currentPage + 1} of {journalEntries.length}</span>
                   </div>
 
                   {/* Entry Content */}
-                  <div className="space-y-6">
-                    <h3 className="text-2xl font-bold text-primary mb-4">
+                  <div className="space-y-8">
+                    <h3 className="text-4xl font-bold text-primary mb-6 font-poppins">
                       {journalEntries[currentPage].title}
                     </h3>
                     
-                    <div className="text-primary/80 leading-relaxed text-lg">
+                    <div className="text-primary/90 leading-relaxed text-xl font-poppins">
                       {journalEntries[currentPage].content}
                     </div>
 
-                    <div className="bg-white/50 rounded-lg p-4 mt-6">
-                      <h4 className="font-semibold text-primary mb-2">Today's Highlights</h4>
-                      <ul className="space-y-1">
+                    <div className="bg-white/70 rounded-2xl p-6 mt-8 shadow-lg">
+                      <h4 className="font-bold text-primary mb-4 text-lg font-poppins">Today's Highlights</h4>
+                      <ul className="space-y-3">
                         {journalEntries[currentPage].highlights.map((highlight, index) => (
-                          <li key={index} className="flex items-center text-primary/70">
-                            <span className="text-secondary mr-2">•</span>
-                            {highlight}
+                          <li key={index} className="flex items-start text-primary/80 font-poppins">
+                            <span className="text-secondary mr-3 text-xl">•</span>
+                            <span className="leading-relaxed">{highlight}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className="flex items-center justify-between mt-8">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm text-primary/60">Mood:</span>
-                        <span className="bg-accent/30 text-primary px-3 py-1 rounded-full text-sm font-medium">
+                    <div className="flex items-center justify-between mt-10">
+                      <div className="flex items-center space-x-3">
+                        <span className="text-primary/60 font-poppins font-medium">Today's Mood:</span>
+                        <span className="bg-accent/40 text-primary px-4 py-2 rounded-full font-bold font-poppins">
                           {journalEntries[currentPage].mood}
                         </span>
                       </div>
@@ -112,39 +115,41 @@ const JournalSection = () => {
                 </div>
               </div>
 
-              {/* Navigation */}
-              <div className="absolute bottom-6 right-6 flex space-x-4">
+              {/* Enhanced Navigation */}
+              <div className="absolute bottom-8 right-8 flex space-x-4">
                 <Button
                   onClick={() => handlePageFlip('prev')}
                   disabled={currentPage === 0 || isFlipping}
                   variant="outline"
-                  size="sm"
-                  className="bg-white/80 hover:bg-white"
+                  size="lg"
+                  className="bg-white/90 hover:bg-white font-poppins font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  <ChevronLeft className="w-4 h-4" />
+                  <ChevronLeft className="w-5 h-5 mr-2" />
+                  Previous
                 </Button>
                 <Button
                   onClick={() => handlePageFlip('next')}
                   disabled={currentPage === journalEntries.length - 1 || isFlipping}
                   variant="outline"
-                  size="sm"
-                  className="bg-white/80 hover:bg-white"
+                  size="lg"
+                  className="bg-white/90 hover:bg-white font-poppins font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  <ChevronRight className="w-4 h-4" />
+                  Next
+                  <ChevronRight className="w-5 h-5 ml-2" />
                 </Button>
               </div>
             </div>
           </div>
         ) : (
-          <div className="text-center py-16">
-            <BookOpen className="w-24 h-24 text-secondary/50 mx-auto mb-6" />
-            <h3 className="text-2xl font-bold text-primary mb-4">Your Journal Awaits</h3>
-            <p className="text-lg text-primary/70 mb-8 max-w-2xl mx-auto">
+          <div className="text-center py-20">
+            <BookOpen className="w-32 h-32 text-secondary/50 mx-auto mb-8" />
+            <h3 className="text-3xl font-bold text-primary mb-6 font-poppins">Your Journal Awaits</h3>
+            <p className="text-xl text-primary/70 mb-10 max-w-2xl mx-auto font-poppins leading-relaxed">
               Your beautiful journey starts today. Let our AI companion help you capture your thoughts, 
               feelings, and experiences in meaningful journal entries.
             </p>
             <Button 
-              className="bg-accent-gradient text-primary font-semibold px-8 py-4 text-lg rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+              className="bg-primary text-white font-bold px-10 py-5 text-xl rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-300 font-poppins"
               onClick={() => document.getElementById('get-started')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Start Your First Entry
