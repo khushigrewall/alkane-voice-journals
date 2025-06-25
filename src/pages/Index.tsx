@@ -4,7 +4,7 @@ import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
 import GetStartedSection from '@/components/GetStartedSection';
-import SubscriptionManagement from '@/components/SubscriptionManagement';
+import ChatbotSection from '@/components/ChatbotSection';
 import JournalSection from '@/components/JournalSection';
 import CalendarSection from '@/components/CalendarSection';
 import PricingSection from '@/components/PricingSection';
@@ -18,7 +18,7 @@ const Index = () => {
       <HeroSection />
       <HowItWorksSection />
       <GetStartedSection />
-      <SubscriptionManagement />
+      <ChatbotSection />
       <JournalSection />
       <CalendarSection />
       <PricingSection />
