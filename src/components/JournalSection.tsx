@@ -1,158 +1,144 @@
 
 import React, { useState } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
 
 const JournalSection = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [isFlipping, setIsFlipping] = useState(false);
 
-  // Sample journal entries
+  // Sample journal entries - replace with real data
   const journalEntries = [
     {
-      date: "2024-01-15",
-      title: "A Beautiful Beginning",
-      content: "Today was the start of something special. I felt a sense of peace and clarity that I haven't experienced in a while. The conversation with the ALKANE agent felt natural and therapeutic, like talking to an old friend who truly understands. There's something magical about being heard without judgment, and I can already feel this journey will be transformative.",
-      mood: "Peaceful",
-      highlights: ["Morning meditation brought clarity", "Productive work session with focus", "Quality family time over dinner"]
+      date: "Today, December 25th",
+      title: "A Peaceful Morning",
+      content: "I woke up feeling refreshed and grateful. The morning sunlight streaming through my window reminded me of all the beautiful moments that make life worth living. Today I spent time with family, shared stories, and felt deeply connected to the people I love most."
     },
     {
-      date: "2024-01-16", 
-      title: "Reflections on Growth",
-      content: "I'm beginning to see patterns in my thoughts and behaviors that I never noticed before. Today's session helped me realize how much I've grown in the past few months. The gentle questions from my ALKANE companion guided me to insights I might have missed entirely. It's like having a personal therapist who's always there when I need them.",
-      mood: "Grateful",
-      highlights: ["Deep self-reflection session", "Completed challenging project successfully", "Evening nature walk brought peace"]
+      date: "Yesterday, December 24th", 
+      title: "Christmas Eve Reflections",
+      content: "Christmas Eve brought such warmth to my heart. I found myself reflecting on the year that's passed and all the growth I've experienced. The quiet moments of preparation, the anticipation of tomorrow, and the simple joy of being present with loved ones filled me with peace."
+    },
+    {
+      date: "December 23rd",
+      title: "Finding Joy in Simple Things",
+      content: "Today reminded me that happiness often comes from the smallest moments. A warm cup of tea, a phone call with a friend, the way the evening light painted the walls golden. I'm learning to appreciate these gentle gifts that each day brings."
     }
   ];
 
-  const handlePageFlip = (direction: 'next' | 'prev') => {
-    setIsFlipping(true);
-    setTimeout(() => {
-      if (direction === 'next' && currentPage < journalEntries.length - 1) {
-        setCurrentPage(currentPage + 1);
-      } else if (direction === 'prev' && currentPage > 0) {
-        setCurrentPage(currentPage - 1);
-      }
-      setIsFlipping(false);
-    }, 400);
+  const nextPage = () => {
+    setCurrentPage((prev) => (prev + 1) % journalEntries.length);
   };
 
-  const hasEntries = journalEntries.length > 0;
+  const prevPage = () => {
+    setCurrentPage((prev) => (prev - 1 + journalEntries.length) % journalEntries.length);
+  };
 
   return (
-    <section id="journal" className="py-24 bg-gradient-to-br from-peach-light to-white">
+    <section id="journal" className="py-20 bg-gradient-to-br from-peach-light to-white">
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-20 animate-fade-in">
-          <h2 className="text-5xl lg:text-6xl font-bold text-primary mb-8 font-poppins">
+        <div className="text-center mb-16 animate-fade-in">
+          <h2 className="text-4xl lg:text-5xl font-bold text-primary mb-6 font-poppins">
             Your Personal Journal
           </h2>
-          <p className="text-xl text-primary/80 max-w-3xl mx-auto font-poppins">
-            Every conversation becomes a beautiful memory, preserved like pages in your life's story
+          <p className="text-lg text-primary/80 max-w-2xl mx-auto font-poppins">
+            Beautiful entries created from your daily conversations, preserved like pages in a cherished book
           </p>
         </div>
 
-        {hasEntries ? (
-          <div className="relative max-w-5xl mx-auto">
-            {/* Book Container with Enhanced Animation */}
-            <div className="relative bg-gradient-to-r from-amber-50 to-orange-50 rounded-3xl shadow-2xl p-12 min-h-[600px] transform-gpu perspective-1000">
-              {/* Book Spine Effect */}
-              <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-b from-amber-200 to-orange-300 rounded-l-3xl shadow-inner border-r-2 border-amber-300"></div>
-              
-              {/* Page Content with Flip Animation */}
-              <div className={`transition-all duration-500 transform-gpu ${
-                isFlipping 
-                  ? 'scale-95 opacity-30 rotateY-12' 
-                  : 'scale-100 opacity-100 rotateY-0'
-              }`}>
-                <div className="ml-12">
-                  {/* Page Header */}
-                  <div className="flex justify-between items-center mb-10 border-b-2 border-primary/20 pb-6">
-                    <div className="flex items-center space-x-4">
-                      <BookOpen className="w-8 h-8 text-secondary" />
-                      <span className="text-2xl font-bold text-primary font-poppins">
-                        {new Date(journalEntries[currentPage].date).toLocaleDateString('en-US', { 
-                          weekday: 'long', 
-                          year: 'numeric', 
-                          month: 'long', 
-                          day: 'numeric' 
-                        })}
-                      </span>
-                    </div>
-                    <span className="text-primary/60 font-poppins font-medium">Page {currentPage + 1} of {journalEntries.length}</span>
-                  </div>
-
-                  {/* Entry Content */}
-                  <div className="space-y-8">
-                    <h3 className="text-4xl font-bold text-primary mb-6 font-poppins">
-                      {journalEntries[currentPage].title}
-                    </h3>
+        {journalEntries.length > 0 ? (
+          <div className="relative max-w-4xl mx-auto">
+            {/* Book-like container */}
+            <div className="relative">
+              <Card className="bg-white shadow-2xl rounded-2xl overflow-hidden transform transition-all duration-500 hover:shadow-3xl">
+                <CardContent className="p-0">
+                  {/* Journal page */}
+                  <div 
+                    key={currentPage}
+                    className="relative min-h-[500px] p-10 bg-gradient-to-br from-white to-peach-light/20 animate-fade-in"
+                  >
+                    {/* Page decoration */}
+                    <div className="absolute top-0 left-8 w-px h-full bg-secondary/20"></div>
+                    <div className="absolute top-8 left-0 right-0 h-px bg-secondary/10"></div>
+                    <div className="absolute top-16 left-0 right-0 h-px bg-secondary/10"></div>
                     
-                    <div className="text-primary/90 leading-relaxed text-xl font-poppins">
-                      {journalEntries[currentPage].content}
-                    </div>
-
-                    <div className="bg-white/70 rounded-2xl p-6 mt-8 shadow-lg">
-                      <h4 className="font-bold text-primary mb-4 text-lg font-poppins">Today's Highlights</h4>
-                      <ul className="space-y-3">
-                        {journalEntries[currentPage].highlights.map((highlight, index) => (
-                          <li key={index} className="flex items-start text-primary/80 font-poppins">
-                            <span className="text-secondary mr-3 text-xl">•</span>
-                            <span className="leading-relaxed">{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="flex items-center justify-between mt-10">
-                      <div className="flex items-center space-x-3">
-                        <span className="text-primary/60 font-poppins font-medium">Today's Mood:</span>
-                        <span className="bg-accent/40 text-primary px-4 py-2 rounded-full font-bold font-poppins">
-                          {journalEntries[currentPage].mood}
-                        </span>
+                    {/* Content */}
+                    <div className="relative z-10 ml-6">
+                      <div className="mb-6">
+                        <p className="text-sm text-secondary font-poppins font-medium mb-2">
+                          {journalEntries[currentPage].date}
+                        </p>
+                        <h3 className="text-2xl font-bold text-primary font-poppins mb-4">
+                          {journalEntries[currentPage].title}
+                        </h3>
+                      </div>
+                      
+                      <div className="prose prose-lg max-w-none">
+                        <p className="text-primary/90 leading-relaxed font-poppins text-lg">
+                          {journalEntries[currentPage].content}
+                        </p>
+                      </div>
+                      
+                      {/* Page number */}
+                      <div className="absolute bottom-8 right-8 text-sm text-primary/50 font-poppins">
+                        Page {currentPage + 1} of {journalEntries.length}
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
 
-              {/* Enhanced Navigation */}
-              <div className="absolute bottom-8 right-8 flex space-x-4">
+              {/* Navigation buttons */}
+              <div className="absolute top-1/2 -translate-y-1/2 -left-6">
                 <Button
-                  onClick={() => handlePageFlip('prev')}
-                  disabled={currentPage === 0 || isFlipping}
-                  variant="outline"
-                  size="lg"
-                  className="bg-white/90 hover:bg-white font-poppins font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                  onClick={prevPage}
+                  className="bg-white/90 hover:bg-white text-primary shadow-lg hover:shadow-xl rounded-full p-3 transition-all duration-300 transform hover:scale-110"
+                  disabled={journalEntries.length <= 1}
                 >
-                  <ChevronLeft className="w-5 h-5 mr-2" />
-                  Previous
+                  <ChevronLeft className="w-5 h-5" />
                 </Button>
+              </div>
+              
+              <div className="absolute top-1/2 -translate-y-1/2 -right-6">
                 <Button
-                  onClick={() => handlePageFlip('next')}
-                  disabled={currentPage === journalEntries.length - 1 || isFlipping}
-                  variant="outline"
-                  size="lg"
-                  className="bg-white/90 hover:bg-white font-poppins font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                  onClick={nextPage}
+                  className="bg-white/90 hover:bg-white text-primary shadow-lg hover:shadow-xl rounded-full p-3 transition-all duration-300 transform hover:scale-110"
+                  disabled={journalEntries.length <= 1}
                 >
-                  Next
-                  <ChevronRight className="w-5 h-5 ml-2" />
+                  <ChevronRight className="w-5 h-5" />
                 </Button>
               </div>
             </div>
+
+            {/* Page indicators */}
+            <div className="flex justify-center mt-8 space-x-2">
+              {journalEntries.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentPage(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentPage 
+                      ? 'bg-secondary shadow-lg' 
+                      : 'bg-primary/20 hover:bg-primary/40'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         ) : (
-          <div className="text-center py-20">
-            <BookOpen className="w-32 h-32 text-secondary/50 mx-auto mb-8" />
-            <h3 className="text-3xl font-bold text-primary mb-6 font-poppins">Your Journal Awaits</h3>
-            <p className="text-xl text-primary/70 mb-10 max-w-2xl mx-auto font-poppins leading-relaxed">
-              Your beautiful journey starts today. Let our AI companion help you capture your thoughts, 
-              feelings, and experiences in meaningful journal entries.
+          <div className="text-center py-16">
+            <BookOpen className="w-16 h-16 text-primary/30 mx-auto mb-6" />
+            <h3 className="text-2xl font-bold text-primary mb-4 font-poppins">
+              Your Journal Awaits
+            </h3>
+            <p className="text-primary/70 mb-8 max-w-md mx-auto font-poppins">
+              Start your journey today and watch as your daily conversations transform into beautiful journal entries.
             </p>
             <Button 
-              className="bg-primary text-white font-bold px-10 py-5 text-xl rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-300 font-poppins"
+              className="bg-primary text-white px-8 py-3 rounded-full font-poppins font-medium hover:bg-primary/90 transition-all duration-300"
               onClick={() => document.getElementById('get-started')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Start Your First Entry
+              Begin Your First Entry
             </Button>
           </div>
         )}

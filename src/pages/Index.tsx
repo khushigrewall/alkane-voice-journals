@@ -3,12 +3,12 @@ import React from 'react';
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
+import GetStartedSection from '@/components/GetStartedSection';
 import SubscriptionManagement from '@/components/SubscriptionManagement';
 import JournalSection from '@/components/JournalSection';
 import CalendarSection from '@/components/CalendarSection';
 import PricingSection from '@/components/PricingSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
-import GetStartedSection from '@/components/GetStartedSection';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -17,12 +17,12 @@ const Index = () => {
       <Navigation />
       <HeroSection />
       <HowItWorksSection />
+      <GetStartedSection />
       <SubscriptionManagement />
       <JournalSection />
       <CalendarSection />
       <PricingSection />
       <TestimonialsSection />
-      <GetStartedSection />
       <Footer />
     </div>
   );

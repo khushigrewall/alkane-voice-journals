@@ -18,68 +18,68 @@ const SubscriptionManagement = () => {
   const hasEntries = userSubscription.entriesCount > 0;
 
   return (
-    <section id="subscription" className="py-24 bg-gradient-to-br from-white to-peach-light">
+    <section id="subscription" className="py-20 bg-white">
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-20">
-          <h2 className="text-5xl lg:text-6xl font-bold text-primary mb-8 font-poppins">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl lg:text-5xl font-bold text-primary mb-6 font-poppins">
             Your Dashboard
           </h2>
-          <p className="text-xl text-primary/80 font-poppins">
+          <p className="text-lg text-primary/80 font-poppins">
             Track your progress and manage your journaling journey
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid lg:grid-cols-2 gap-8 mb-12">
           {/* Current Plan Status */}
-          <Card className="bg-white/80 backdrop-blur-sm border-2 border-accent/30 shadow-2xl rounded-3xl overflow-hidden">
-            <CardHeader className="bg-accent-gradient text-primary p-8">
-              <CardTitle className="text-2xl font-bold font-poppins flex items-center">
-                <Calendar className="w-8 h-8 mr-3" />
+          <Card className="bg-gradient-to-br from-accent-light to-white border border-accent/20 shadow-lg rounded-2xl overflow-hidden">
+            <CardHeader className="bg-accent/10 p-6">
+              <CardTitle className="text-xl font-bold text-primary font-poppins flex items-center">
+                <Calendar className="w-6 h-6 mr-3" />
                 Current Plan
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-8 space-y-6">
+            <CardContent className="p-6 space-y-4">
               <div className="text-center">
-                <Badge className="bg-secondary text-white font-bold px-6 py-3 text-lg font-poppins">
+                <Badge className="bg-secondary text-white font-bold px-4 py-2 text-sm font-poppins">
                   {userSubscription.plan}
                 </Badge>
               </div>
               <div className="text-center space-y-2">
-                <p className="text-primary font-bold text-lg font-poppins">
+                <p className="text-primary font-medium text-base font-poppins">
                   Status: <span className="text-green-600">{userSubscription.status}</span>
                 </p>
                 <p className="text-primary/70 font-poppins">
-                  <span className="font-bold text-2xl text-secondary">{userSubscription.daysRemaining}</span> days remaining in trial
+                  <span className="font-bold text-xl text-secondary">{userSubscription.daysRemaining}</span> days remaining
                 </p>
               </div>
             </CardContent>
           </Card>
 
           {/* Journal Progress */}
-          <Card className="bg-white/80 backdrop-blur-sm border-2 border-secondary/30 shadow-2xl rounded-3xl overflow-hidden">
-            <CardHeader className="bg-secondary/10 p-8">
-              <CardTitle className="text-2xl font-bold text-primary font-poppins flex items-center">
-                <BookOpen className="w-8 h-8 mr-3 text-secondary" />
+          <Card className="bg-gradient-to-br from-white to-peach-light border border-accent/20 shadow-lg rounded-2xl overflow-hidden">
+            <CardHeader className="bg-peach/10 p-6">
+              <CardTitle className="text-xl font-bold text-primary font-poppins flex items-center">
+                <BookOpen className="w-6 h-6 mr-3 text-secondary" />
                 Your Progress
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-8 text-center space-y-6">
+            <CardContent className="p-6 text-center space-y-4">
               {hasEntries ? (
                 <>
-                  <div className="text-6xl font-bold text-secondary font-poppins">
+                  <div className="text-5xl font-bold text-secondary font-poppins">
                     {userSubscription.entriesCount}
                   </div>
-                  <p className="text-primary/70 text-lg font-poppins">Journal Entries Created</p>
+                  <p className="text-primary/70 text-base font-poppins">Journal Entries Created</p>
                   <div className="flex items-center justify-center space-x-2 text-green-600">
-                    <CheckCircle className="w-6 h-6" />
-                    <span className="font-poppins font-semibold">Amazing progress!</span>
+                    <CheckCircle className="w-5 h-5" />
+                    <span className="font-poppins font-medium">Amazing progress!</span>
                   </div>
                 </>
               ) : (
                 <>
-                  <div className="text-6xl font-bold text-primary/30 font-poppins">0</div>
-                  <p className="text-primary/70 text-lg font-poppins">Journal Entries</p>
-                  <p className="text-primary/60 font-poppins">Your journey starts today!</p>
+                  <div className="text-5xl font-bold text-primary/30 font-poppins">0</div>
+                  <p className="text-primary/70 text-base font-poppins">Journal Entries</p>
+                  <p className="text-primary/60 font-poppins text-sm">Your journey starts today!</p>
                 </>
               )}
             </CardContent>
@@ -87,29 +87,29 @@ const SubscriptionManagement = () => {
         </div>
 
         {/* Get Started Section */}
-        <Card className="bg-accent-gradient border-none shadow-2xl rounded-3xl overflow-hidden">
-          <CardContent className="text-center py-16 px-8">
-            <h3 className="text-4xl font-bold text-primary mb-6 font-poppins">
+        <Card className="bg-gradient-to-br from-accent-light to-peach-light border-none shadow-lg rounded-2xl overflow-hidden">
+          <CardContent className="text-center py-12 px-8">
+            <h3 className="text-3xl font-bold text-primary mb-4 font-poppins">
               {hasEntries ? "Continue Your Journey" : "Start Your Journey Today"}
             </h3>
-            <p className="text-primary/80 mb-10 max-w-3xl mx-auto text-xl leading-relaxed font-poppins">
+            <p className="text-primary/80 mb-8 max-w-2xl mx-auto text-lg leading-relaxed font-poppins">
               {hasEntries 
                 ? "Schedule your next call and continue building your beautiful journal collection."
-                : "Ready to begin? Fill out the form below and we'll schedule your first therapeutic conversation. No writing required - just authentic conversations that become lasting memories."
+                : "Ready to begin? Fill out the form below and we'll schedule your first conversation."
               }
             </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button 
-                className="bg-primary text-white px-12 py-6 text-xl font-bold rounded-full hover:bg-primary/90 transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl font-poppins"
+                className="bg-primary text-white px-10 py-4 text-lg font-bold rounded-full hover:bg-primary/90 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl font-poppins"
                 onClick={() => document.getElementById('get-started')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 {hasEntries ? "Schedule Next Call" : "Get Started Now"}
-                <ArrowRight className="w-6 h-6 ml-3" />
+                <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               {!hasEntries && (
                 <Button 
                   variant="outline" 
-                  className="border-2 border-primary text-primary bg-white/80 px-12 py-6 text-xl font-bold rounded-full hover:bg-white transition-all duration-300 shadow-lg font-poppins"
+                  className="border-2 border-primary text-primary bg-white/80 px-10 py-4 text-lg font-medium rounded-full hover:bg-white transition-all duration-300 shadow-md font-poppins"
                   onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   View Pricing Plans
