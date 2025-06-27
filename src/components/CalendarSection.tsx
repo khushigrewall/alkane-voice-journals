@@ -47,28 +47,28 @@ const CalendarSection = () => {
                 <span>Select a Date</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="flex justify-center">
-              <Calendar
-                mode="single"
-                selected={selectedDate}
-                onSelect={setSelectedDate}
-                className="rounded-md border-none shadow-inner bg-white/50 w-full max-w-sm"
-                modifiers={{
-                  hasEntry: datesWithEntries
-                }}
-                modifiersStyles={{
-                  hasEntry: { 
-                    backgroundColor: '#FF9456', 
-                    color: 'white',
-                    fontWeight: 'bold'
-                  }
-                }}
-              />
-              <div className="mt-4 text-sm text-primary/70 absolute bottom-4 left-4">
-                <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 bg-accent rounded"></div>
-                  <span className="font-poppins">Days with journal entries</span>
-                </div>
+            <CardContent className="p-6">
+              <div className="w-full flex justify-center">
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={setSelectedDate}
+                  className="rounded-md border-none shadow-inner bg-white/50 w-full"
+                  modifiers={{
+                    hasEntry: datesWithEntries
+                  }}
+                  modifiersStyles={{
+                    hasEntry: { 
+                      backgroundColor: '#FF9456', 
+                      color: 'white',
+                      fontWeight: 'bold'
+                    }
+                  }}
+                />
+              </div>
+              <div className="mt-6 text-sm text-primary/70 flex items-center justify-center space-x-2">
+                <div className="w-4 h-4 bg-accent rounded"></div>
+                <span className="font-poppins">Days with journal entries</span>
               </div>
             </CardContent>
           </Card>

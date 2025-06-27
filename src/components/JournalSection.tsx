@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
+import { ChevronLeft, ChevronRight, BookOpen, Sparkles } from 'lucide-react';
 
 const JournalSection = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -33,7 +33,7 @@ const JournalSection = () => {
     setTimeout(() => {
       setCurrentPage((prev) => (prev + 1) % journalEntries.length);
       setIsFlipping(false);
-    }, 300);
+    }, 600);
   };
 
   const prevPage = () => {
@@ -42,37 +42,41 @@ const JournalSection = () => {
     setTimeout(() => {
       setCurrentPage((prev) => (prev - 1 + journalEntries.length) % journalEntries.length);
       setIsFlipping(false);
-    }, 300);
+    }, 600);
   };
 
   return (
-    <section id="journal" className="py-20 bg-gradient-to-br from-peach-light to-white">
+    <section id="journal" className="py-20 bg-gradient-to-br from-peach-light to-white relative overflow-hidden">
+      {/* Background decorations */}
+      <div className="absolute top-10 right-10 w-32 h-32 bg-accent/5 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-10 left-10 w-40 h-40 bg-secondary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-4xl lg:text-5xl font-bold text-primary mb-6 font-poppins">
-            Your Personal Journal
-          </h2>
-          <p className="text-lg text-primary/80 max-w-2xl mx-auto font-poppins">
+          <div className="flex items-center justify-center mb-4">
+            <Sparkles className="w-6 h-6 text-secondary mr-3 animate-pulse" />
+            <h2 className="text-4xl lg:text-5xl font-bold text-primary font-poppins">
+              Your Personal Journal
+            </h2>
+            <Sparkles className="w-6 h-6 text-secondary ml-3 animate-pulse" />
+          </div>
+          <p className="text-lg text-primary/80 max-w-2xl mx-auto font-poppins leading-relaxed">
             Beautiful entries created from your daily conversations, preserved like pages in a cherished book
           </p>
         </div>
 
         {journalEntries.length > 0 ? (
           <div className="relative max-w-4xl mx-auto">
-            {/* Book-like container with page flipping animation */}
-            <div className="relative perspective-1000">
-              <Card className="bg-white shadow-2xl rounded-2xl overflow-hidden transform transition-all duration-500 hover:shadow-3xl">
-                <CardContent className="p-0">
-                  {/* Journal page with flip animation */}
+            {/* Book-like container with smooth page flipping animation */}
+            <div className="relative" style={{ perspective: '1000px' }}>
+              <Card className="bg-white shadow-2xl rounded-2xl overflow-hidden transform transition-all duration-500 hover:shadow-3xl book-container">
+                <CardContent className="p-0 relative">
+                  {/* Journal page with smooth flip animation */}
                   <div 
                     key={currentPage}
-                    className={`relative min-h-[500px] p-10 bg-gradient-to-br from-white to-peach-light/20 transition-all duration-300 ${
-                      isFlipping ? 'transform rotateY-180 opacity-0' : 'transform rotateY-0 opacity-100'
+                    className={`relative min-h-[500px] p-10 bg-gradient-to-br from-white to-peach-light/20 transition-all duration-600 ease-in-out transform-gpu ${
+                      isFlipping ? 'page-flip-out' : 'page-flip-in'
                     }`}
-                    style={{
-                      transformStyle: 'preserve-3d',
-                      animation: isFlipping ? 'pageFlip 0.6s ease-in-out' : 'none'
-                    }}
                   >
                     {/* Page decoration */}
                     <div className="absolute top-0 left-8 w-px h-full bg-secondary/20"></div>
@@ -138,7 +142,7 @@ const JournalSection = () => {
                       setTimeout(() => {
                         setCurrentPage(index);
                         setIsFlipping(false);
-                      }, 300);
+                      }, 600);
                     }
                   }}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
@@ -168,23 +172,6 @@ const JournalSection = () => {
           </div>
         )}
       </div>
-
-      <style jsx>{`
-        @keyframes pageFlip {
-          0% { transform: rotateY(0deg); opacity: 1; }
-          50% { transform: rotateY(-90deg); opacity: 0.5; }
-          100% { transform: rotateY(0deg); opacity: 1; }
-        }
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-        .rotateY-180 {
-          transform: rotateY(180deg);
-        }
-        .rotateY-0 {
-          transform: rotateY(0deg);
-        }
-      `}</style>
     </section>
   );
 };

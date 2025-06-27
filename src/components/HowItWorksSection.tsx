@@ -28,16 +28,16 @@ const HowItWorksSection = () => {
   ];
 
   return (
-    <section id="how-it-works" className="py-16 bg-gradient-to-br from-white via-peach-light/50 to-white relative overflow-hidden">
+    <section id="how-it-works" className="py-12 bg-gradient-to-br from-white via-peach-light/50 to-white relative overflow-hidden">
       {/* Background decorations */}
-      <div className="absolute top-10 right-10 w-24 h-24 bg-accent/5 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-10 left-10 w-32 h-32 bg-secondary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute top-10 right-10 w-20 h-20 bg-accent/5 rounded-full blur-2xl animate-pulse"></div>
+      <div className="absolute bottom-10 left-10 w-24 h-24 bg-secondary/5 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
       
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-12 animate-fade-in">
+        <div className="text-center mb-10 animate-fade-in">
           <div className="flex items-center justify-center mb-4">
             <Sparkles className="w-6 h-6 text-secondary mr-3 animate-pulse" />
-            <h2 className="text-4xl lg:text-5xl font-bold text-primary font-poppins">
+            <h2 className="text-3xl lg:text-4xl font-bold text-primary font-poppins">
               How It Works
             </h2>
             <Sparkles className="w-6 h-6 text-secondary ml-3 animate-pulse" />
@@ -48,9 +48,6 @@ const HowItWorksSection = () => {
         </div>
 
         <div className="relative">
-          {/* Connection lines */}
-          <div className="hidden lg:block absolute top-1/2 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-accent via-secondary to-accent transform -translate-y-1/2 opacity-30"></div>
-          
           <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
             {steps.map((step, index) => (
               <div 
@@ -60,21 +57,21 @@ const HowItWorksSection = () => {
               >
                 <div className="relative mb-6">
                   {/* Main icon container */}
-                  <div className={`w-20 h-20 mx-auto bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center shadow-xl mb-4 group-hover:scale-110 transition-all duration-500 relative overflow-hidden`}>
+                  <div className={`w-16 h-16 mx-auto bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center shadow-lg mb-4 group-hover:scale-110 transition-all duration-500 relative overflow-hidden`}>
                     <step.icon className="w-8 h-8 text-white relative z-10" />
                     <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
                   
                   {/* Step number */}
-                  <div className="absolute -top-2 -right-2 w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:rotate-12 transition-transform duration-300">
+                  <div className="absolute -top-2 -right-2 w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg group-hover:rotate-12 transition-transform duration-300">
                     {step.number}
                   </div>
                 </div>
                 
-                <h3 className="text-xl lg:text-2xl font-bold text-primary mb-4 font-poppins group-hover:text-secondary transition-colors duration-300">
+                <h3 className="text-xl lg:text-xl font-bold text-primary mb-3 font-poppins group-hover:text-secondary transition-colors duration-300">
                   {step.title}
                 </h3>
-                <p className="text-primary/70 leading-relaxed font-poppins">
+                <p className="text-primary/70 leading-relaxed font-poppins text-sm">
                   {step.description}
                 </p>
 
