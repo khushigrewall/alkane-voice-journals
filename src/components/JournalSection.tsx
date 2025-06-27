@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
 
 const JournalSection = () => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [isFlipping, setIsFlipping] = useState(false);
 
   // Sample journal entries - replace with real data
   const journalEntries = [
@@ -27,11 +28,21 @@ const JournalSection = () => {
   ];
 
   const nextPage = () => {
-    setCurrentPage((prev) => (prev + 1) % journalEntries.length);
+    if (isFlipping) return;
+    setIsFlipping(true);
+    setTimeout(() => {
+      setCurrentPage((prev) => (prev + 1) % journalEntries.length);
+      setIsFlipping(false);
+    }, 300);
   };
 
   const prevPage = () => {
-    setCurrentPage((prev) => (prev - 1 + journalEntries.length) % journalEntries.length);
+    if (isFlipping) return;
+    setIsFlipping(true);
+    setTimeout(() => {
+      setCurrentPage((prev) => (prev - 1 + journalEntries.length) % journalEntries.length);
+      setIsFlipping(false);
+    }, 300);
   };
 
   return (
@@ -48,14 +59,20 @@ const JournalSection = () => {
 
         {journalEntries.length > 0 ? (
           <div className="relative max-w-4xl mx-auto">
-            {/* Book-like container */}
-            <div className="relative">
+            {/* Book-like container with page flipping animation */}
+            <div className="relative perspective-1000">
               <Card className="bg-white shadow-2xl rounded-2xl overflow-hidden transform transition-all duration-500 hover:shadow-3xl">
                 <CardContent className="p-0">
-                  {/* Journal page */}
+                  {/* Journal page with flip animation */}
                   <div 
                     key={currentPage}
-                    className="relative min-h-[500px] p-10 bg-gradient-to-br from-white to-peach-light/20 animate-fade-in"
+                    className={`relative min-h-[500px] p-10 bg-gradient-to-br from-white to-peach-light/20 transition-all duration-300 ${
+                      isFlipping ? 'transform rotateY-180 opacity-0' : 'transform rotateY-0 opacity-100'
+                    }`}
+                    style={{
+                      transformStyle: 'preserve-3d',
+                      animation: isFlipping ? 'pageFlip 0.6s ease-in-out' : 'none'
+                    }}
                   >
                     {/* Page decoration */}
                     <div className="absolute top-0 left-8 w-px h-full bg-secondary/20"></div>
@@ -93,7 +110,7 @@ const JournalSection = () => {
                 <Button
                   onClick={prevPage}
                   className="bg-white/90 hover:bg-white text-primary shadow-lg hover:shadow-xl rounded-full p-3 transition-all duration-300 transform hover:scale-110"
-                  disabled={journalEntries.length <= 1}
+                  disabled={journalEntries.length <= 1 || isFlipping}
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </Button>
@@ -103,7 +120,7 @@ const JournalSection = () => {
                 <Button
                   onClick={nextPage}
                   className="bg-white/90 hover:bg-white text-primary shadow-lg hover:shadow-xl rounded-full p-3 transition-all duration-300 transform hover:scale-110"
-                  disabled={journalEntries.length <= 1}
+                  disabled={journalEntries.length <= 1 || isFlipping}
                 >
                   <ChevronRight className="w-5 h-5" />
                 </Button>
@@ -115,7 +132,15 @@ const JournalSection = () => {
               {journalEntries.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentPage(index)}
+                  onClick={() => {
+                    if (!isFlipping) {
+                      setIsFlipping(true);
+                      setTimeout(() => {
+                        setCurrentPage(index);
+                        setIsFlipping(false);
+                      }, 300);
+                    }
+                  }}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     index === currentPage 
                       ? 'bg-secondary shadow-lg' 
@@ -143,6 +168,23 @@ const JournalSection = () => {
           </div>
         )}
       </div>
+
+      <style jsx>{`
+        @keyframes pageFlip {
+          0% { transform: rotateY(0deg); opacity: 1; }
+          50% { transform: rotateY(-90deg); opacity: 0.5; }
+          100% { transform: rotateY(0deg); opacity: 1; }
+        }
+        .perspective-1000 {
+          perspective: 1000px;
+        }
+        .rotateY-180 {
+          transform: rotateY(180deg);
+        }
+        .rotateY-0 {
+          transform: rotateY(0deg);
+        }
+      `}</style>
     </section>
   );
 };

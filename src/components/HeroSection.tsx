@@ -103,14 +103,6 @@ const HeroSection = () => {
                 How It Works
               </Button>
             </div>
-            
-            <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto shadow-lg border border-accent/20">
-              <p className="text-primary/70 text-lg font-poppins flex items-center justify-center gap-2">
-                <Sparkles className="w-5 h-5 text-secondary" />
-                <em>Start with a free month—no commitments, just compassionate conversations</em>
-                <Sparkles className="w-5 h-5 text-secondary" />
-              </p>
-            </div>
           </div>
         </div>
       </div>

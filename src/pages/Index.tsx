@@ -4,11 +4,8 @@ import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
 import GetStartedSection from '@/components/GetStartedSection';
-import ChatbotSection from '@/components/ChatbotSection';
 import JournalSection from '@/components/JournalSection';
 import CalendarSection from '@/components/CalendarSection';
-import PricingSection from '@/components/PricingSection';
-import TestimonialsSection from '@/components/TestimonialsSection';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -18,11 +15,8 @@ const Index = () => {
       <HeroSection />
       <HowItWorksSection />
       <GetStartedSection />
-      <ChatbotSection />
       <JournalSection />
       <CalendarSection />
-      <PricingSection />
-      <TestimonialsSection />
       <Footer />
     </div>
   );
