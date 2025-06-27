@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 
@@ -11,7 +12,8 @@ const GetStartedSection = () => {
     name: '',
     phone: '',
     email: '',
-    callTime: ''
+    callTime: '',
+    aboutYou: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -84,7 +86,7 @@ const GetStartedSection = () => {
       });
 
       // Reset form
-      setFormData({ name: '', phone: '', email: '', callTime: '' });
+      setFormData({ name: '', phone: '', email: '', callTime: '', aboutYou: '' });
     } catch (error) {
       toast({
         title: "Submission Error",
@@ -100,10 +102,10 @@ const GetStartedSection = () => {
     <section id="get-started" className="py-20 bg-white/50 backdrop-blur-sm">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 animate-fade-in">
-          <h2 className="text-4xl lg:text-5xl font-bold text-primary mb-6">
+          <h2 className="text-4xl lg:text-5xl font-bold text-primary mb-6 font-poppins">
             Start Your Free Month
           </h2>
-          <p className="text-xl text-primary/80">
+          <p className="text-xl text-primary/80 font-poppins">
             Fill in your details below and begin your journaling journey today
           </p>
         </div>
@@ -112,7 +114,7 @@ const GetStartedSection = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label htmlFor="name" className="text-primary font-medium">
+                <Label htmlFor="name" className="text-primary font-medium font-poppins">
                   Full Name *
                 </Label>
                 <Input
@@ -121,13 +123,13 @@ const GetStartedSection = () => {
                   placeholder="Enter your full name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="border-2 border-accent/30 focus:border-secondary rounded-xl p-4 text-primary"
+                  className="border-2 border-accent/30 focus:border-secondary rounded-xl p-4 text-primary font-poppins"
                   required
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="phone" className="text-primary font-medium">
+                <Label htmlFor="phone" className="text-primary font-medium font-poppins">
                   Phone Number *
                 </Label>
                 <Input
@@ -136,14 +138,14 @@ const GetStartedSection = () => {
                   placeholder="+1 (555) 123-4567"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="border-2 border-accent/30 focus:border-secondary rounded-xl p-4 text-primary"
+                  className="border-2 border-accent/30 focus:border-secondary rounded-xl p-4 text-primary font-poppins"
                   required
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-primary font-medium">
+              <Label htmlFor="email" className="text-primary font-medium font-poppins">
                 Email Address *
               </Label>
               <Input
@@ -152,25 +154,25 @@ const GetStartedSection = () => {
                 placeholder="your.email@gmail.com"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="border-2 border-accent/30 focus:border-secondary rounded-xl p-4 text-primary"
+                className="border-2 border-accent/30 focus:border-secondary rounded-xl p-4 text-primary font-poppins"
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="callTime" className="text-primary font-medium">
+              <Label htmlFor="callTime" className="text-primary font-medium font-poppins">
                 Preferred Call Time *
               </Label>
               <Select
                 value={formData.callTime}
                 onValueChange={(value) => setFormData({ ...formData, callTime: value })}
               >
-                <SelectTrigger className="border-2 border-accent/30 focus:border-secondary rounded-xl p-4 text-primary">
+                <SelectTrigger className="border-2 border-accent/30 focus:border-secondary rounded-xl p-4 text-primary font-poppins">
                   <SelectValue placeholder="Select your preferred call time" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border-2 border-accent/30 rounded-xl">
                   {timeSlots.map((time) => (
-                    <SelectItem key={time} value={time} className="text-primary hover:bg-accent/20">
+                    <SelectItem key={time} value={time} className="text-primary hover:bg-accent/20 font-poppins">
                       {time}
                     </SelectItem>
                   ))}
@@ -178,17 +180,34 @@ const GetStartedSection = () => {
               </Select>
             </div>
 
+            <div className="space-y-2">
+              <Label htmlFor="aboutYou" className="text-primary font-medium font-poppins">
+                About You
+              </Label>
+              <Textarea
+                id="aboutYou"
+                placeholder="Tell us a bit about yourself, your interests, and what you'd like to journal about..."
+                value={formData.aboutYou}
+                onChange={(e) => setFormData({ ...formData, aboutYou: e.target.value })}
+                className="border-2 border-accent/30 focus:border-secondary rounded-xl p-4 text-primary font-poppins min-h-[100px] resize-none"
+                rows={4}
+              />
+              <p className="text-sm text-primary/60 font-poppins">
+                This helps us personalize your experience and create better conversations
+              </p>
+            </div>
+
             <div className="pt-6">
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-accent-gradient text-primary font-semibold py-4 text-lg rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:transform-none"
+                className="w-full bg-primary text-white font-semibold py-4 text-lg rounded-xl hover:bg-primary/90 hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:transform-none font-poppins"
               >
                 {isSubmitting ? "Setting Up Your Account..." : "Start My Free Month"}
               </Button>
             </div>
 
-            <p className="text-center text-sm text-primary/60 mt-4">
+            <p className="text-center text-sm text-primary/60 mt-4 font-poppins">
               By signing up, you agree to receive calls from ALKANE at your specified time. 
               Cancel anytime during your free trial.
             </p>

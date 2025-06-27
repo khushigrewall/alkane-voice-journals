@@ -6,9 +6,7 @@ import { ChevronLeft, ChevronRight, BookOpen, Sparkles } from 'lucide-react';
 
 const JournalSection = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [isFlipping, setIsFlipping] = useState(false);
 
-  // Sample journal entries - replace with real data
   const journalEntries = [
     {
       date: "Today, December 25th",
@@ -28,21 +26,11 @@ const JournalSection = () => {
   ];
 
   const nextPage = () => {
-    if (isFlipping) return;
-    setIsFlipping(true);
-    setTimeout(() => {
-      setCurrentPage((prev) => (prev + 1) % journalEntries.length);
-      setIsFlipping(false);
-    }, 800);
+    setCurrentPage((prev) => (prev + 1) % journalEntries.length);
   };
 
   const prevPage = () => {
-    if (isFlipping) return;
-    setIsFlipping(true);
-    setTimeout(() => {
-      setCurrentPage((prev) => (prev - 1 + journalEntries.length) % journalEntries.length);
-      setIsFlipping(false);
-    }, 800);
+    setCurrentPage((prev) => (prev - 1 + journalEntries.length) % journalEntries.length);
   };
 
   return (
@@ -63,20 +51,12 @@ const JournalSection = () => {
 
         {journalEntries.length > 0 ? (
           <div className="relative max-w-4xl mx-auto">
-            {/* Static book container with page turning animation */}
             <div className="relative" style={{ perspective: '1000px' }}>
               <Card className="bg-white shadow-2xl rounded-2xl overflow-hidden">
                 <CardContent className="p-0 relative">
-                  {/* Journal page with smooth page turn animation */}
                   <div 
                     key={currentPage}
-                    className={`relative min-h-[500px] p-10 bg-gradient-to-br from-white to-peach-light/20 transition-all duration-800 ease-in-out ${
-                      isFlipping ? 'animate-[pageFlip_0.8s_ease-in-out]' : ''
-                    }`}
-                    style={{
-                      transformOrigin: 'left center',
-                      transformStyle: 'preserve-3d'
-                    }}
+                    className="relative min-h-[500px] p-10 bg-gradient-to-br from-white to-peach-light/20 transition-all duration-500 ease-in-out"
                   >
                     {/* Page decoration */}
                     <div className="absolute top-0 left-8 w-px h-full bg-secondary/20"></div>
@@ -100,7 +80,6 @@ const JournalSection = () => {
                         </p>
                       </div>
                       
-                      {/* Page number */}
                       <div className="absolute bottom-8 right-8 text-sm text-primary/50 font-poppins">
                         Page {currentPage + 1} of {journalEntries.length}
                       </div>
@@ -114,7 +93,7 @@ const JournalSection = () => {
                 <Button
                   onClick={prevPage}
                   className="bg-white/90 hover:bg-white text-primary shadow-lg hover:shadow-xl rounded-full p-3 transition-all duration-300"
-                  disabled={journalEntries.length <= 1 || isFlipping}
+                  disabled={journalEntries.length <= 1}
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </Button>
@@ -124,7 +103,7 @@ const JournalSection = () => {
                 <Button
                   onClick={nextPage}
                   className="bg-white/90 hover:bg-white text-primary shadow-lg hover:shadow-xl rounded-full p-3 transition-all duration-300"
-                  disabled={journalEntries.length <= 1 || isFlipping}
+                  disabled={journalEntries.length <= 1}
                 >
                   <ChevronRight className="w-5 h-5" />
                 </Button>
@@ -136,15 +115,7 @@ const JournalSection = () => {
               {journalEntries.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => {
-                    if (!isFlipping) {
-                      setIsFlipping(true);
-                      setTimeout(() => {
-                        setCurrentPage(index);
-                        setIsFlipping(false);
-                      }, 800);
-                    }
-                  }}
+                  onClick={() => setCurrentPage(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     index === currentPage 
                       ? 'bg-secondary shadow-lg' 
