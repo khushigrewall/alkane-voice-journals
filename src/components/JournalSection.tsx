@@ -33,7 +33,7 @@ const JournalSection = () => {
     setTimeout(() => {
       setCurrentPage((prev) => (prev + 1) % journalEntries.length);
       setIsFlipping(false);
-    }, 600);
+    }, 800);
   };
 
   const prevPage = () => {
@@ -42,23 +42,19 @@ const JournalSection = () => {
     setTimeout(() => {
       setCurrentPage((prev) => (prev - 1 + journalEntries.length) % journalEntries.length);
       setIsFlipping(false);
-    }, 600);
+    }, 800);
   };
 
   return (
     <section id="journal" className="py-20 bg-gradient-to-br from-peach-light to-white relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-10 right-10 w-32 h-32 bg-accent/5 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-10 left-10 w-40 h-40 bg-secondary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-      
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-16 animate-fade-in">
+        <div className="text-center mb-16">
           <div className="flex items-center justify-center mb-4">
-            <Sparkles className="w-6 h-6 text-secondary mr-3 animate-pulse" />
+            <Sparkles className="w-6 h-6 text-secondary mr-3" />
             <h2 className="text-4xl lg:text-5xl font-bold text-primary font-poppins">
               Your Personal Journal
             </h2>
-            <Sparkles className="w-6 h-6 text-secondary ml-3 animate-pulse" />
+            <Sparkles className="w-6 h-6 text-secondary ml-3" />
           </div>
           <p className="text-lg text-primary/80 max-w-2xl mx-auto font-poppins leading-relaxed">
             Beautiful entries created from your daily conversations, preserved like pages in a cherished book
@@ -67,16 +63,20 @@ const JournalSection = () => {
 
         {journalEntries.length > 0 ? (
           <div className="relative max-w-4xl mx-auto">
-            {/* Book-like container with smooth page flipping animation */}
+            {/* Static book container with page turning animation */}
             <div className="relative" style={{ perspective: '1000px' }}>
-              <Card className="bg-white shadow-2xl rounded-2xl overflow-hidden transform transition-all duration-500 hover:shadow-3xl book-container">
+              <Card className="bg-white shadow-2xl rounded-2xl overflow-hidden">
                 <CardContent className="p-0 relative">
-                  {/* Journal page with smooth flip animation */}
+                  {/* Journal page with smooth page turn animation */}
                   <div 
                     key={currentPage}
-                    className={`relative min-h-[500px] p-10 bg-gradient-to-br from-white to-peach-light/20 transition-all duration-600 ease-in-out transform-gpu ${
-                      isFlipping ? 'page-flip-out' : 'page-flip-in'
+                    className={`relative min-h-[500px] p-10 bg-gradient-to-br from-white to-peach-light/20 transition-all duration-800 ease-in-out ${
+                      isFlipping ? 'animate-[pageFlip_0.8s_ease-in-out]' : ''
                     }`}
+                    style={{
+                      transformOrigin: 'left center',
+                      transformStyle: 'preserve-3d'
+                    }}
                   >
                     {/* Page decoration */}
                     <div className="absolute top-0 left-8 w-px h-full bg-secondary/20"></div>
@@ -113,7 +113,7 @@ const JournalSection = () => {
               <div className="absolute top-1/2 -translate-y-1/2 -left-6">
                 <Button
                   onClick={prevPage}
-                  className="bg-white/90 hover:bg-white text-primary shadow-lg hover:shadow-xl rounded-full p-3 transition-all duration-300 transform hover:scale-110"
+                  className="bg-white/90 hover:bg-white text-primary shadow-lg hover:shadow-xl rounded-full p-3 transition-all duration-300"
                   disabled={journalEntries.length <= 1 || isFlipping}
                 >
                   <ChevronLeft className="w-5 h-5" />
@@ -123,7 +123,7 @@ const JournalSection = () => {
               <div className="absolute top-1/2 -translate-y-1/2 -right-6">
                 <Button
                   onClick={nextPage}
-                  className="bg-white/90 hover:bg-white text-primary shadow-lg hover:shadow-xl rounded-full p-3 transition-all duration-300 transform hover:scale-110"
+                  className="bg-white/90 hover:bg-white text-primary shadow-lg hover:shadow-xl rounded-full p-3 transition-all duration-300"
                   disabled={journalEntries.length <= 1 || isFlipping}
                 >
                   <ChevronRight className="w-5 h-5" />
@@ -142,7 +142,7 @@ const JournalSection = () => {
                       setTimeout(() => {
                         setCurrentPage(index);
                         setIsFlipping(false);
-                      }, 600);
+                      }, 800);
                     }
                   }}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${

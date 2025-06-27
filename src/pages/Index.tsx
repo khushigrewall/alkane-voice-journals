@@ -6,6 +6,8 @@ import HowItWorksSection from '@/components/HowItWorksSection';
 import GetStartedSection from '@/components/GetStartedSection';
 import JournalSection from '@/components/JournalSection';
 import CalendarSection from '@/components/CalendarSection';
+import MoodTrackerSection from '@/components/MoodTrackerSection';
+import MemoryVaultSection from '@/components/MemoryVaultSection';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -17,6 +19,8 @@ const Index = () => {
       <GetStartedSection />
       <JournalSection />
       <CalendarSection />
+      <MoodTrackerSection />
+      <MemoryVaultSection />
       <Footer />
     </div>
   );

@@ -39,7 +39,7 @@ const CalendarSection = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Calendar */}
+          {/* Calendar - Properly sized */}
           <Card className="bg-peach-gradient border-none shadow-xl">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2 text-primary font-poppins">
@@ -47,13 +47,13 @@ const CalendarSection = () => {
                 <span>Select a Date</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
-              <div className="w-full flex justify-center">
+            <CardContent className="p-4">
+              <div className="flex justify-center">
                 <Calendar
                   mode="single"
                   selected={selectedDate}
                   onSelect={setSelectedDate}
-                  className="rounded-md border-none shadow-inner bg-white/50 w-full"
+                  className="rounded-md border-none shadow-inner bg-white/50 w-full max-w-sm"
                   modifiers={{
                     hasEntry: datesWithEntries
                   }}
@@ -66,7 +66,7 @@ const CalendarSection = () => {
                   }}
                 />
               </div>
-              <div className="mt-6 text-sm text-primary/70 flex items-center justify-center space-x-2">
+              <div className="mt-4 text-sm text-primary/70 flex items-center justify-center space-x-2">
                 <div className="w-4 h-4 bg-accent rounded"></div>
                 <span className="font-poppins">Days with journal entries</span>
               </div>

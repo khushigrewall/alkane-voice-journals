@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -127,9 +128,17 @@
     transform: rotateY(0deg);
     opacity: 1;
   }
+  25% {
+    transform: rotateY(-45deg) rotateX(10deg);
+    opacity: 0.8;
+  }
   50% {
-    transform: rotateY(-90deg);
+    transform: rotateY(-90deg) rotateX(15deg);
     opacity: 0.5;
+  }
+  75% {
+    transform: rotateY(-135deg) rotateX(10deg);
+    opacity: 0.8;
   }
   100% {
     transform: rotateY(-180deg);
