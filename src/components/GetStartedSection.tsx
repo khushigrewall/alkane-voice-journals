@@ -82,7 +82,7 @@ const GetStartedSection = () => {
       
       toast({
         title: "Welcome to ALKANE!",
-        description: "Your free trial starts now. You'll receive your first call tomorrow at " + formData.callTime,
+        description: "Your journey begins now. You'll receive your first call tomorrow at " + formData.callTime,
       });
 
       // Reset form
@@ -103,10 +103,10 @@ const GetStartedSection = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 animate-fade-in">
           <h2 className="text-4xl lg:text-5xl font-bold text-primary mb-6 font-poppins">
-            Start Your Free Month
+            Begin Your Journey Today
           </h2>
           <p className="text-xl text-primary/80 font-poppins">
-            Fill in your details below and begin your journaling journey today
+            Fill in your details below and start your personalized journaling experience
           </p>
         </div>
 
@@ -203,7 +203,7 @@ const GetStartedSection = () => {
                 disabled={isSubmitting}
                 className="w-full bg-primary text-white font-semibold py-4 text-lg rounded-xl hover:bg-primary/90 hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:transform-none font-poppins"
               >
-                {isSubmitting ? "Setting Up Your Account..." : "Start My Free Month"}
+                {isSubmitting ? "Setting Up Your Account..." : "Start My Journey"}
               </Button>
             </div>
 
