@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,6 +5,7 @@ import { ChevronLeft, ChevronRight, BookOpen, Sparkles } from 'lucide-react';
 
 const JournalSection = () => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const journalEntries = [
     {
@@ -26,11 +26,21 @@ const JournalSection = () => {
   ];
 
   const nextPage = () => {
-    setCurrentPage((prev) => (prev + 1) % journalEntries.length);
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrentPage((prev) => (prev + 1) % journalEntries.length);
+      setIsAnimating(false);
+    }, 300);
   };
 
   const prevPage = () => {
-    setCurrentPage((prev) => (prev - 1 + journalEntries.length) % journalEntries.length);
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrentPage((prev) => (prev - 1 + journalEntries.length) % journalEntries.length);
+      setIsAnimating(false);
+    }, 300);
   };
 
   return (
@@ -56,7 +66,9 @@ const JournalSection = () => {
                 <CardContent className="p-0 relative">
                   <div 
                     key={currentPage}
-                    className="relative min-h-[500px] p-10 bg-gradient-to-br from-white to-peach-light/20 transition-all duration-500 ease-in-out"
+                    className={`relative min-h-[500px] p-10 bg-gradient-to-br from-white to-peach-light/20 transition-all duration-500 ease-in-out transform-gpu ${
+                      isAnimating ? 'animate-page-turn' : ''
+                    }`}
                   >
                     {/* Page decoration */}
                     <div className="absolute top-0 left-8 w-px h-full bg-secondary/20"></div>
@@ -92,8 +104,8 @@ const JournalSection = () => {
               <div className="absolute top-1/2 -translate-y-1/2 -left-6">
                 <Button
                   onClick={prevPage}
-                  className="bg-white/90 hover:bg-white text-primary shadow-lg hover:shadow-xl rounded-full p-3 transition-all duration-300"
-                  disabled={journalEntries.length <= 1}
+                  className="bg-white/90 hover:bg-white text-primary shadow-lg hover:shadow-xl rounded-full p-3 transition-all duration-300 hover:scale-110"
+                  disabled={journalEntries.length <= 1 || isAnimating}
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </Button>
@@ -102,8 +114,8 @@ const JournalSection = () => {
               <div className="absolute top-1/2 -translate-y-1/2 -right-6">
                 <Button
                   onClick={nextPage}
-                  className="bg-white/90 hover:bg-white text-primary shadow-lg hover:shadow-xl rounded-full p-3 transition-all duration-300"
-                  disabled={journalEntries.length <= 1}
+                  className="bg-white/90 hover:bg-white text-primary shadow-lg hover:shadow-xl rounded-full p-3 transition-all duration-300 hover:scale-110"
+                  disabled={journalEntries.length <= 1 || isAnimating}
                 >
                   <ChevronRight className="w-5 h-5" />
                 </Button>
@@ -115,8 +127,16 @@ const JournalSection = () => {
               {journalEntries.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentPage(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  onClick={() => {
+                    if (!isAnimating) {
+                      setIsAnimating(true);
+                      setTimeout(() => {
+                        setCurrentPage(index);
+                        setIsAnimating(false);
+                      }, 300);
+                    }
+                  }}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 hover:scale-125 ${
                     index === currentPage 
                       ? 'bg-secondary shadow-lg' 
                       : 'bg-primary/20 hover:bg-primary/40'

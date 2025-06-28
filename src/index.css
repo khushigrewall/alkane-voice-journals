@@ -145,3 +145,22 @@
     opacity: 1;
   }
 }
+
+@keyframes page-turn {
+  0% {
+    transform: rotateY(0deg) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: rotateY(-90deg) scale(0.8);
+    opacity: 0.3;
+  }
+  100% {
+    transform: rotateY(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-page-turn {
+  animation: page-turn 0.6s ease-in-out;
+}
