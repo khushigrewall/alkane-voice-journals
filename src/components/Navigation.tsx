@@ -1,10 +1,16 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Calendar, BookOpen, User, Home } from 'lucide-react';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Replace 'userId' with your actual localStorage key for user id
+    const userId = localStorage.getItem('userId');
+    setIsLoggedIn(!!userId);
+  }, []);
 
   const navItems = [
     { name: 'Home', href: '#home', icon: Home },
@@ -12,6 +18,13 @@ const Navigation = () => {
     { name: 'Calendar', href: '#calendar', icon: Calendar },
     { name: 'Dashboard', href: '#subscription', icon: User },
   ];
+
+  const handleLogout = () => {
+    // Replace 'userId' with your actual localStorage key for user id
+    localStorage.removeItem('userId');
+    setIsLoggedIn(false);
+    // Optionally, redirect or perform other actions
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-accent/10">
@@ -33,9 +46,18 @@ const Navigation = () => {
                 {item.name}
               </a>
             ))}
-            <Button className="bg-primary text-white font-poppins font-medium px-6 py-2 rounded-full hover:bg-primary/90 transition-all duration-300">
-              Get Started
-            </Button>
+            {isLoggedIn ? (
+              <Button
+                className="bg-destructive text-white font-poppins font-medium px-6 py-2 rounded-full hover:bg-destructive/90 transition-all duration-300"
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
+            ) : (
+              <Button className="bg-primary text-white font-poppins font-medium px-6 py-2 rounded-full hover:bg-primary/90 transition-all duration-300">
+                Get Started
+              </Button>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -63,9 +85,21 @@ const Navigation = () => {
                   {item.name}
                 </a>
               ))}
-              <Button className="bg-primary text-white font-poppins font-medium px-6 py-2 rounded-full mx-2">
-                Get Started
-              </Button>
+              {isLoggedIn ? (
+                <Button
+                  className="bg-destructive text-white font-poppins font-medium px-6 py-2 rounded-full mx-2"
+                  onClick={() => {
+                    handleLogout();
+                    setIsOpen(false);
+                  }}
+                >
+                  Logout
+                </Button>
+              ) : (
+                <Button className="bg-primary text-white font-poppins font-medium px-6 py-2 rounded-full mx-2">
+                  Get Started
+                </Button>
+              )}
             </div>
           </div>
         )}

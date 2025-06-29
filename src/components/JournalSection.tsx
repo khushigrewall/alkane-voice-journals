@@ -1,29 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, BookOpen, Sparkles } from 'lucide-react';
 
+interface ChatSummary {
+  summary_id: number;
+  conversation_summary: string;
+  created_at: string;
+}
+
+interface ChatSummaryResponse {
+  status: string;
+  summaries: ChatSummary[];
+}
+
 const JournalSection = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [journalEntries, setJournalEntries] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const journalEntries = [
-    {
-      date: "Today, December 25th",
-      title: "A Peaceful Morning",
-      content: "I woke up feeling refreshed and grateful. The morning sunlight streaming through my window reminded me of all the beautiful moments that make life worth living. Today I spent time with family, shared stories, and felt deeply connected to the people I love most."
-    },
-    {
-      date: "Yesterday, December 24th", 
-      title: "Christmas Eve Reflections",
-      content: "Christmas Eve brought such warmth to my heart. I found myself reflecting on the year that's passed and all the growth I've experienced. The quiet moments of preparation, the anticipation of tomorrow, and the simple joy of being present with loved ones filled me with peace."
-    },
-    {
-      date: "December 23rd",
-      title: "Finding Joy in Simple Things",
-      content: "Today reminded me that happiness often comes from the smallest moments. A warm cup of tea, a phone call with a friend, the way the evening light painted the walls golden. I'm learning to appreciate these gentle gifts that each day brings."
-    }
-  ];
+  // Replace with actual user ID - you might get this from auth context
+  const userId = localStorage.getItem('userId') || '21';
+
+  useEffect(() => {
+    const fetchChatSummaries = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`https://journaly-backend-cs29.onrender.com/chat-summaries/${userId}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          }
+
+        );
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data: ChatSummaryResponse = await response.json();
+        
+        if (data.status === 'success') {
+          const formattedEntries = data.summaries.map((summary, index) => ({
+            date: new Date(summary.created_at).toLocaleDateString('en-US', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            }),
+            title: `Journal Entry ${data.summaries.length - index}`,
+            content: summary.conversation_summary
+          }));
+          setJournalEntries(formattedEntries);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch journal entries');
+        console.error('Error fetching chat summaries:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchChatSummaries();
+  }, [userId]);
 
   const nextPage = () => {
     if (isAnimating) return;
@@ -42,6 +85,31 @@ const JournalSection = () => {
       setIsAnimating(false);
     }, 300);
   };
+
+  if (loading) {
+    return (
+      <section id="journal" className="py-20 bg-gradient-to-br from-peach-light to-white relative overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-primary/70 font-poppins">Loading your journal entries...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section id="journal" className="py-20 bg-gradient-to-br from-peach-light to-white relative overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-red-500 font-poppins">Error loading journal entries: {error}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="journal" className="py-20 bg-gradient-to-br from-peach-light to-white relative overflow-hidden">
